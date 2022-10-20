@@ -1,12 +1,13 @@
 package nuevainterfazdeusuario;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Rectangle;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -16,6 +17,7 @@ public class Ventana extends JFrame {
     JPanel panel1;
     JTextArea textArea;
     JButton boton1;
+    JScrollPane scrollPane;
     
     Ventana(){
         crearVentana();
@@ -52,19 +54,38 @@ public class Ventana extends JFrame {
         panel1.add(etiqueta);
         
         campoDeTexto = new JTextField();
-        campoDeTexto.setBounds(10, 80, 150, 50);
-        campoDeTexto.setText("Campo de texto de una sola línea");
+//        campoDeTexto.setText("Campo de texto de una sola línea");
+        campoDeTexto.setBounds(10, 80, 300, 50);
         
         panel1.add(campoDeTexto);
         
-        textArea = new JTextArea(10, 50);
-        textArea.setBounds(10, 150, 300, 150);
+        textArea = new JTextArea(); // Como vamos a embeberlo dentro de un JScrollPane no es necesario definirle el tamaño
+        //textArea.setBounds(10, 150, 300, 150);
         
-        panel1.add(textArea);
+        // Para agregar scroll al JTextArea hay que embeberlo dentro de un JScrollPane
+        scrollPane = new JScrollPane(textArea);
+        scrollPane.setBounds(10, 150, 300, 150);
         
-        boton1 = new JButton("Click");
-        boton1.setBounds(10, 310, 80, 30);
+        panel1.add(scrollPane);
+        
+        boton1 = new JButton();
+        boton1.setText("Hacer click sobrel el botón");
+        boton1.setBounds(10, 310, 300, 30);
         
         panel1.add(boton1);
+        
+        ActionListener accionDeBoton = new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                // Recupero el texto contenido en el campo de texto
+                String texto = campoDeTexto.getText();
+                
+                // Agrego el texto al textarea y un salto de línea
+                textArea.append(texto + "\n");
+            }
+        };
+        
+        // Agrego el ActionListener al botón
+        boton1.addActionListener(accionDeBoton);
     }
 }

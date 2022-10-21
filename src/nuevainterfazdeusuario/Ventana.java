@@ -3,6 +3,7 @@ package nuevainterfazdeusuario;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -18,6 +19,8 @@ public class Ventana extends JFrame {
     JTextArea textArea;
     JButton boton1;
     JScrollPane scrollPane;
+    ImageIcon imagen;
+    JLabel labelImagen;
     
     Ventana(){
         crearVentana();
@@ -87,5 +90,11 @@ public class Ventana extends JFrame {
         
         // Agrego el ActionListener al botón
         boton1.addActionListener(accionDeBoton);
+        
+        imagen = new ImageIcon("spidermeme.jpg");
+        labelImagen = new JLabel(imagen);
+        labelImagen.setBounds(310, 20, 400, 400);
+        
+        panel1.add(labelImagen);
     }
 }
